@@ -26,6 +26,17 @@ class WhatsappHelper():
             self.log('you are not logged in')
             return False
 
+    def getCurrentChatName(self):
+
+        try:
+            chatNameElement = self.driver.find_element(
+                By.XPATH, '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/header/div[2]/div[1]/div/span')
+        except NoSuchElementException:
+            self.log('Chat Name Element Not Found')
+            return False
+
+        return chatNameElement.get_attribute('innerHTML')
+
     def getAllChats(self):
         return self.driver.find_elements(By.CLASS_NAME, '_3m_Xw')
 
