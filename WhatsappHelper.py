@@ -60,9 +60,17 @@ class WhatsappHelper():
 
         sleep(1)
 
-        first = self.driver.find_element(
+        try:
+            firstItem = self.driver.find_element(
             By.XPATH, "/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/span/div[1]/span/div[1]/div[2]/div/div/div/div[2]")
-        first.click()
+        except NoSuchElementException:
+            self.log(f'{name} Not Found')
+            backBtn = self.driver.find_element(
+                By.XPATH, "/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/span/div[1]/span/div[1]/header/div/div[1]/button")
+            backBtn.click()
+            return False
+
+        firstItem.click()
 
         return True
 
