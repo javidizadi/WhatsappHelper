@@ -57,6 +57,8 @@ class WhatsappHelper():
             return True
 
         except NoSuchElementException:
+            chatName = self.getCurrentChatName()
+            self.log(f'{chatName} is not Open to Send Message')
             return False
 
     def newChat(self, name: str):
@@ -74,7 +76,7 @@ class WhatsappHelper():
 
         try:
             firstItem = self.driver.find_element(
-            By.XPATH, "/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/span/div[1]/span/div[1]/div[2]/div/div/div/div[2]")
+                By.XPATH, "/html/body/div[1]/div[1]/div[1]/div[2]/div[1]/span/div[1]/span/div[1]/div[2]/div/div/div/div[2]")
         except NoSuchElementException:
             self.log(f'{name} Not Found')
             backBtn = self.driver.find_element(
@@ -88,15 +90,13 @@ class WhatsappHelper():
 
     def sendMessage(self, name: str, message: str):
 
-        self.newChat(name)
-
-        if not self.isChatOpen():
-            print(f'{name} is not Open to send message')
+        if not self.checkLogin() or \
+                not self.newChat(name) or \
+                not self.isChatOpen():
             return False
 
         textBox = self.driver.find_element(
             By.XPATH, '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]')
-
         textBox.clear()
         textBox.send_keys(message)
 
