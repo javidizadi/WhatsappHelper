@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, localtime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
@@ -6,8 +6,16 @@ from selenium.common.exceptions import NoSuchElementException
 
 class WhatsappHelper():
 
-    def __init__(self, driver: webdriver):
+    def __init__(self, driver: webdriver, logSwitch: bool):
         self.driver = driver
+        self.logSwitch = logSwitch
+
+    def log(self, message):
+        if self.logSwitch:
+            tm = localtime()
+            tm_str = f'{tm.tm_year}-{tm.tm_mon}-{tm.tm_mday} {tm.tm_hour}:{tm.tm_min}:{tm.tm_sec}'
+            print(tm_str)
+            print(f'\t{message}')
 
     def checkLogin(self):
         try:
