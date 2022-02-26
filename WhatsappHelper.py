@@ -23,6 +23,7 @@ class WhatsappHelper():
             self.driver.find_element(By.CLASS_NAME, "uwk68")
             return True
         except NoSuchElementException:
+            self.log('you are not logged in')
             return False
 
     def getAllChats(self):
