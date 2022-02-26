@@ -37,19 +37,6 @@ class WhatsappHelper():
 
         return chatNameElement.get_attribute('innerHTML')
 
-    def getAllChats(self):
-        return self.driver.find_elements(By.CLASS_NAME, '_3m_Xw')
-
-    def getChatNames(self):
-        chatNames = []
-        chats = self.getAllChats()
-        for chat in chats:
-            name = chat.find_element(
-                By.CLASS_NAME, 'le5p0ye3').get_attribute('innerHTML')
-            chatNames.append(name)
-
-        return chatNames
-
     def isChatOpen(self):
         try:
             # find the Messaging Box
